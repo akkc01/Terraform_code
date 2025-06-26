@@ -29,6 +29,11 @@ module "nic" {
   nic           = var.nic
 }
 
+# module "kv" {
+#   source     = "../../Module/azurerm_key_vault"
+#   depends_on = [module.rg, module.pip]
+#   kv         = var.kv
+# }
 
 module "vm" {
   source     = "../../Module/azurerm_virtual_machine"
@@ -49,3 +54,14 @@ module "nic-association" {
 
 }
 
+# module "kvsu" {
+#   source     = "../../Module/azurerm_key_vault_secret_username"
+#   depends_on = [module.kv]
+#   kvsu       = var.kvsu
+# }
+
+# module "kvsp" {
+#   source     = "../../Module/azurerm_key_vault_secret_password"
+#   depends_on = [module.kv]
+#   kvsp       = var.kvsp
+# }

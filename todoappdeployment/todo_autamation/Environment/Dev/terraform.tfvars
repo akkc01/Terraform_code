@@ -70,7 +70,8 @@ nic = {
     private_ip_address_allocation = "Dynamic"
     vnet_name                     = "dev-vnet001"
     subnet_name                   = "frontend-subnet"
-    pip_name                      = "dev-vm-pip1"
+    #nsg_name                      = "dev-nsg1"
+    pip_name = "dev-vm-pip1"
 
   }
 }
@@ -78,9 +79,9 @@ nic = {
 
 nsg-nic-association = {
   nsg-nic-assoc1 = {
-    nsg_name            = "dev-nsg1"
-    rg_name             = "Akkc-dev-rg-007"
+    nsg_name            = "devvm-nsg"
     nic_name            = "dev-vm-001-nic"
+    rg_name             = "Akkc-dev-rg-007"
     name_security_rule1 = "AllowSSH"
     name_security_rule2 = "AllowRDP"
   }
@@ -89,15 +90,27 @@ nsg-nic-association = {
 
 vm = {
   vm1 = {
-    vm_name        = "dev-ubuntu-vm-001"
+    vm_name        = "devvm-007"
     rg_name        = "Akkc-dev-rg-007"
-    nic_name       = "dev-vm-001-nic"
     location       = "Centralindia"
     vm_size        = "Standard_F2"
-    admin_username = "devopsadmin"
-    admin_password = "Terraform@2025"
-    #name_kv       = "rajkeyvault1245803"
+    admin_username = "akkcadmin"
+    admin_password = "Surveillance1@123"
+    #network_interface_ids = ["/subscriptions/xxx/resourceGroups/Akkc-dev-rg-007/providers/Microsoft.Network/networkInterfaces/dev-vm-001-nic"]
+
+    os_disk = {
+      os_disk_caching              = "ReadWrite"
+      os_disk_storage_account_type = "Standard_LRS"
+    }
+
+    source_image_reference = {
+      publisher = "Canonical"
+      offer     = "UbuntuServer"
+      sku       = "18.04-LTS"
+      version   = "latest"
+    }
   }
 }
+
 
 

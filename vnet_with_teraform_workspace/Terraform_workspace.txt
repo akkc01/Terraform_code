@@ -1,0 +1,99 @@
+🌍 What is a Terraform Workspace?
+A Terraform workspace is a feature that allows you to manage multiple state files within the same Terraform configuration. By default, Terraform uses a single workspace named default, but you can create additional ones to manage different environments (like dev, staging, prod) or logically separate infrastructure using the same codebase.
+
+Each workspace has its own state file, which means that resources managed in one workspace are isolated from those in another.
+
+🧠 Why Use Workspaces?
+Isolate infrastructure by environment (e.g., dev, test, prod)
+
+Share code but deploy separate state
+
+Easier parallel deployments using the same Terraform config
+
+🚀 Terraform Workspace Commands
+1. 🔍 List All Workspaces
+bash
+Copy
+Edit
+terraform workspace list
+Shows all available workspaces
+
+The current one is marked with an asterisk (*)
+
+2. 🎯 Select a Workspace
+bash
+Copy
+Edit
+terraform workspace select <workspace_name>
+Switches to an existing workspace
+
+Example:
+
+bash
+Copy
+Edit
+terraform workspace select dev
+3. 🆕 Create a New Workspace
+bash
+Copy
+Edit
+terraform workspace new <workspace_name>
+Creates and switches to a new workspace
+
+Example:
+
+bash
+Copy
+Edit
+terraform workspace new staging
+4. 🗑️ Delete a Workspace
+bash
+Copy
+Edit
+terraform workspace delete <workspace_name>
+Deletes a workspace only if it’s not the current one
+
+The state file associated with it will also be deleted
+
+5. 📍 Show Current Workspace
+bash
+Copy
+Edit
+terraform workspace show
+Displays the current active workspace
+
+⚙️ How It Works Behind the Scenes
+Each workspace maintains its own copy of the .tfstate file. In local backend, state files are stored like:
+
+r
+Copy
+Edit
+terraform.tfstate.d/
+├── dev/
+│   └── terraform.tfstate
+├── prod/
+│   └── terraform.tfstate
+In remote backends (like S3, Terraform Cloud), workspace names are often mapped to object keys or namespaces.
+
+⚠️ Important Considerations
+Workspaces are not ideal for managing vastly different infrastructures. Use modules and separate directories/repos instead.
+
+They work well for environment separation using the same configuration.
+
+Always verify you're on the correct workspace before applying changes.
+
+🧪 Example Workflow
+bash
+Copy
+Edit
+terraform init
+
+terraform workspace new dev
+terraform plan -out=dev.plan
+terraform apply dev.plan
+
+terraform workspace new prod
+terraform plan -out=prod.plan
+terraform apply prod.plan
+Each environment (dev, prod) has its own state file and manages its own resources.
+

@@ -1,4 +1,4 @@
-\variable "rg" {
+variable "rg" {
   description = "A map of child resource groups to create."
   type = map(object({
     rg_name  = string
@@ -78,9 +78,6 @@ variable "nic" {
     nic_name                      = string
     rg_name                       = string
     location                      = string
-    vnet_name                     = string
-    subnet_name                   = string
-    pip_name                      = string
     ip_configuration_name         = string
     private_ip_address_allocation = string
     subnet_id                     = optional(string)
@@ -102,16 +99,6 @@ variable "nsg-nic-association" {
 
 
 variable "vm" {
-  description = "A map of virtual machines to create."
-  type = map(object({
-    vm_name        = string
-    rg_name        = string
-    location       = string
-    vm_size        = string
-    admin_username = string
-    admin_password = string
-    nic_name       = string
-  }))
-}
 
+}
 
